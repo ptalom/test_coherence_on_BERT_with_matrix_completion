@@ -23,6 +23,8 @@ data:
     prec: 2
     train_p_mask: 0.3
     test_p_mask: 0.3
+    train_tau: 1.0
+    test_tau: 1.0 
 
 train:
     epochs: 50000

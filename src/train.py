@@ -33,7 +33,7 @@ def train_epoch(
     m, n, r_t, r_e = args.data.m, args.data.n, args.data.train_rank, args.data.test_rank
 
     X_mask_tr, X_tr, mask_tr = data_sampler.sample(
-        n_samples=args.train.num_train, m=m, n=n, r=r_t, p_mask=args.data.train_p_mask
+        n_samples=args.train.num_train, m=m, n=n, r=r_t, p_mask=args.data.train_p_mask, tau=args.data.train_tau
     )
     X_mask_tr.requires_grad_(False)
     X_tr.requires_grad_(False)
@@ -90,7 +90,7 @@ def train_epoch(
         )
 
         X_mask_ev, X_ev, mask_ev = data_sampler.sample(
-            n_samples=args.train.num_eval, m=m, n=n, r=r_e, p_mask=args.data.test_p_mask
+            n_samples=args.train.num_eval, m=m, n=n, r=r_e, p_mask=args.data.test_p_mask, tau=args.data.test_tau
         )
         X_mask_ev.requires_grad_(False)
         X_ev.requires_grad_(False)

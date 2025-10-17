@@ -20,7 +20,7 @@ class Matrix(ABC):
         pass
 
     @abstractmethod
-    def sample(self, n_samples, m, n, r, p_mask, tau=0.0, return_uv=False):
+    def sample(self, n_samples, m, n, r, p_mask, tau, return_uv=False):
         pass
 
 
@@ -59,7 +59,7 @@ class RealMatrix(Matrix):
         nu = (A.shape[2] / r) * torch.sum(Vh**2, dim=1)
         return mu[:, :, None] + nu[:, None, :]
 
-    def sample(self, n_samples, m, n, r, p_mask, tau=1.0, return_uv=False):
+    def sample(self, n_samples, m, n, r, p_mask, tau, return_uv=False):
         """
         Génère une matrice et masque N = p_mask * m * n éléments.
         Parmi ces N :
@@ -108,7 +108,7 @@ class RealMatrix(Matrix):
             return matrix_mask_tok, matrix_rounded, visible_mask, U, V
         return matrix_mask_tok, matrix_rounded, visible_mask
 
-    def sample_patch(self, n_samples, m, n, r, p_mask, tau=1.0, return_uv=False):
+    def sample_patch(self, n_samples, m, n, r, p_mask, tau, return_uv=False):
         """
         Variante avec matrice corrigée corr_matrix = -matrix
         """
@@ -133,7 +133,7 @@ class GaussianMatrix(RealMatrix):
         super(GaussianMatrix, self).__init__(args=args, device=device)
         self.scale = args.gaussian_scale
 
-    def sample(self, n_samples, m, n, r, p_mask, tau=1.0, return_uv=False):
+    def sample(self, n_samples, m, n, r, p_mask, tau, return_uv=False):
         print("Gaussian")
         U = self.scale * torch.randn((n_samples, m, r), device=self.device)
         V = self.scale * torch.randn((n_samples, n, r), device=self.device)
@@ -146,7 +146,7 @@ class LaplaceMatrix(RealMatrix):
         super(LaplaceMatrix, self).__init__(args=args, device=device)
         self.scale = args.laplace_scale
 
-    def sample(self, n_samples, m, n, r, p_mask, tau=1.0, return_uv=False):
+    def sample(self, n_samples, m, n, r, p_mask, tau, return_uv=False):
         print("Laplace")
         laplace = torch.distributions.laplace.Laplace(0, self.scale)
         U = laplace.sample((n_samples, m, r)).to(self.device)
