@@ -6,26 +6,26 @@ For this mini-project, I want to test the model's sensitivity when the masked po
 
 I use τ as a coherence controller:
 
-- If τ = 1, I select all the positions with the highest local coherence and apply the `p_mask` proportion on these positions.
+- If τ = 1, I select all the positions with the highest local coherence and apply the `p_mask` proportion on these positions. 
 
-- If τ = 0.5, I select only the top 50% of positions according to their local coherence and apply the `p_mask` proportion on these selected positions.
+- If τ = 0.5, I select the top 50% of positions according to their local coherence and apply the `p_mask` proportion on these selected positions and I complete the remaining 50% by masking the positions randomly.
 
 - If τ = 0, no coherence-based selection is done, and the masked positions are chosen entirely at random according to `p_mask`.
 
 This ensures that exactly `p_mask * (m * n)` entries are masked in each matrix, with a fraction τ determined by coherence, while the remaining `(1-τ) * N` entries (if τ < 1) can be chosen uniformly at random.
-
-## Getting started
-Install the dependencies using Conda
-```bash
-conda env create -f env.yaml
-conda activate env-name
-```
 
 ## Setup 
 ```bash
 git clone https://github.com/ptalom/test_coherence_on_BERT_with_matrix_completion.git
 cd test_coherence_on_BERT_with_matrix_completion
 cd src
+```
+
+## Getting started
+Install the dependencies using Conda
+```bash
+conda env create -f env.yaml
+conda activate coherence_sampling
 ```
 
 ## Training
