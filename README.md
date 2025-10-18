@@ -14,17 +14,18 @@ I use τ as a coherence controller:
 
 This ensures that exactly `p_mask * (m * n)` entries are masked in each matrix, with a fraction τ determined by coherence, while the remaining `(1-τ) * N` entries (if τ < 1) can be chosen uniformly at random.
 
-## Setup 
-```bash
-git clone https://github.com/ptalom/test_coherence_on_BERT_with_matrix_completion.git
-cd test_coherence_on_BERT_with_matrix_completion
-cd src
-```
 ## Getting started
 Install the dependencies using Conda
 ```bash
 conda env create -f env.yaml
 conda activate env-name
+```
+
+## Setup 
+```bash
+git clone https://github.com/ptalom/test_coherence_on_BERT_with_matrix_completion.git
+cd test_coherence_on_BERT_with_matrix_completion
+cd src
 ```
 
 ## Training
