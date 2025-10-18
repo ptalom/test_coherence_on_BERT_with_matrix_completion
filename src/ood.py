@@ -23,8 +23,8 @@ def main(args):
     if args.data.type == "uniform":
         data_sampler = RealMatrix(args.data, device=device)
 
-    elif args.data.type == "integer":
-        data_sampler = IntegerMatrix(args.data, device=device)
+    #elif args.data.type == "integer":
+    #    data_sampler = IntegerMatrix(args.data, device=device)
 
     elif args.data.type == "gaussian":
         data_sampler = GaussianMatrix(args.data, device=device) 
@@ -38,6 +38,7 @@ def main(args):
         n=n,
         r=r,
         p_mask=args.data.p_mask,
+        tau=args.data.tau
     )
 
     X_mask = X_mask.detach().requires_grad_(False)

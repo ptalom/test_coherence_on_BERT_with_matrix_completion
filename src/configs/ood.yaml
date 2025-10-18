@@ -24,6 +24,7 @@ data:
     rank: 2
     prec: 2
     p_mask: 0.3
+    tau: 1.0
 
 train:
     epoch: 49999

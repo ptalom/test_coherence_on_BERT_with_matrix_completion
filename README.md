@@ -20,8 +20,14 @@ git clone https://github.com/ptalom/test_coherence_on_BERT_with_matrix_completio
 cd test_coherence_on_BERT_with_matrix_completion
 cd src
 ```
+## Getting started
+Install the dependencies using Conda
+```bash
+conda env create -f env.yaml
+conda activate env-name
+```
 
-## Start training
+## Training
 ```bash
 python train.py --config configs/train.yaml
 ```
