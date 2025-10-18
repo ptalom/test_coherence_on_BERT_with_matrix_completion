@@ -183,11 +183,33 @@ def main(args, ckpt_dir):
         vocab_size = ckpt["vocab_size"]
         print(f"loading model state at epoch {start - 1} with loss {ckpt['loss']}")
 
+    '''
     if args.wandb.log:
         wandb_run_name = ckpt_dir
         wandb.login(key="")
         wandb.init(project="tf-matcomp", name=wandb_run_name, config=args)
         wandb.watch(model)
+    '''
+
+    if args.wandb.log:
+        # --- Configuration du projet W&B ---
+        wandb_run_name = ckpt_dir  
+        wandb_project = "mlm_training"    
+        wandb_entity = "tik_lom"            
+        
+        #wandb login a8b3276fb38485c3be1fc8089a1a5c28f269036a
+        wandb.login()
+        wandb.init(
+            project=wandb_project,
+            entity=wandb_entity,
+            name=wandb_run_name,
+            config=args
+        )
+
+        # --- Suivi du modèle ---
+        wandb.watch(model)
+
+        
 
     # Print model config and param names if required ----
     # print(model.config)
