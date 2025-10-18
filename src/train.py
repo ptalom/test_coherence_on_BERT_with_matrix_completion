@@ -205,8 +205,6 @@ def main(args, ckpt_dir):
             name=wandb_run_name,
             config=args
         )
-
-        # --- Suivi du modèle ---
         wandb.watch(model)
 
         
