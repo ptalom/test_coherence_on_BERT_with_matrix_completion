@@ -66,7 +66,7 @@ I also tested the impact of local coherence on convex approaches for matrix comp
 
 The matrix completion problem can be formulated as:
 
-    min   ||X||_*  s.t.  X_ij = M_ij  for all (i, j) ∈ Ω
+    min ||X||_*  s.t.  X_ij = M_ij  for all (i, j) ∈ Ω
 
 where:
 - `||X||_* = Σ σ_i(X)` is the nuclear norm (sum of singular values),
