@@ -1,6 +1,6 @@
 
 ## Test Coherence on BERT, case study on Matrix Completion
-In the original paper "Abrupt Learning in Transformers: A Case Study on Matrix Completion" (NeurIPS 2024). [arXiv link](https://arxiv.org/abs/2410.22244), the aim is to train a model on a matrix completion task. To do this, the authors generate matrix, then randomly select positions of the elements of these matrix with a `p_mask` proportion, and mask them before sending them to the model, which will attempt to predict them. 
+In the original paper *"Abrupt Learning in Transformers: A Case Study on Matrix Completion" (NeurIPS 2024)*. [arXiv link](https://arxiv.org/abs/2410.22244), the aim is to train a model on a matrix completion task. To do this, the authors generate matrix, then randomly select positions of the elements of these matrix with a `p_mask` proportion, and mask them before sending them to the model, which will attempt to predict them. 
 
 For this mini-project, I want to test the model's sensitivity when the masked positions are selected according to a coherence-based criterion rather than randomly, as in the original paper. To achieve this, I compute the local coherence for each generated matrix and select the positions to mask based on this coherence.
 
