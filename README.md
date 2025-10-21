@@ -1,18 +1,36 @@
 
 ## Test Coherence on BERT, case study on Matrix Completion
-In the original paper *"Abrupt Learning in Transformers: A Case Study on Matrix Completion" (NeurIPS 2024)*. [arXiv link](https://arxiv.org/abs/2410.22244), the aim is to train a model on a matrix completion task. To do this, the authors generate matrix, then randomly select positions of the elements of these matrix with a `p_mask` proportion, and mask them before sending them to the model, which will attempt to predict them. 
+In the original paper *"Abrupt Learning in Transformers: A Case Study on Matrix Completion" (NeurIPS 2024)*. [arXiv link](https://arxiv.org/abs/2410.22244), the aim is to train a model on a matrix completion task. To do this, the authors generate matrix, then randomly select positions of the elements of these matrix with a $p_{mask}$ proportion, and mask them before sending them to the model, which will attempt to predict them. 
 
-For this mini-project, I want to test the model's sensitivity when the masked positions are selected according to a coherence-based criterion rather than randomly, as in the original paper. To achieve this, I compute the local coherence for each generated matrix and select the positions to mask based on this coherence.
+For this mini-project, I want to test the model's sensitivity when the masked positions are selected according to a coherence-based criterion rather than uniformly as random, as in the original paper. To achieve this, I compute the local coherence for each generated matrix and select the positions to mask based on this coherence.
 
-I use τ as a coherence controller:
+### Problem setup
+We consider the **matrix completion** problem, where the goal is to recover a low-rank matrix $$M \in \mathbb{R}^{m \times n}$$ from a subset of its observed entries. Let $\Omega \subset [m] \times [n]$ denote the set of observed indices, with $|\Omega| = (1-p_{mask})\cdot m*n$. The task is to recover $M$ from the projection $P_\Omega(M)$, where $P_\Omega$ keeps entries in $\Omega$ and sets others to zero.
 
-- If τ = 1, I select all the positions with the highest local coherence and apply the `p_mask` proportion on these positions. 
+### Matrix coherence
+The coherence of a subspace quantifies how aligned its basis vectors are with the canonical axes.
+for a rank-$r$ matrix $M=U\Sigma V^T $, where $U \in \mathbb{R}^{m \times r} $ and $ V \in \mathbb{R}^{n \times r}$, the row and the column coherence are defined as : 
 
-- If τ = 0.5, I select the top 50% of positions according to their local coherence and apply the `p_mask` proportion on these selected positions and I complete the remaining 50% by masking the positions randomly.
+$$
+\mu_i(U)= \frac{m}{r}max\|P_{U}e_i\|_2^2
+ \quad
+\mu_j(V)= \frac{n}{r}max\|P_{V}e_j\|_2^2
+$$
+where $P_U=UU^T$ and $e_i$ are canonical basis vectors.
 
-- If τ = 0, no coherence-based selection is done, and the masked positions are chosen entirely at random according to `p_mask`.
+### Coherence-Based Sampling
+Instead of sampling uniformly at random, **coherence-based sampling** biases the mask toward more or less coherent entries.
+I use τ ∈ [0, 1] to control this bias:
 
-This ensures that exactly `p_mask * (m * n)` entries are masked in each matrix, with a fraction τ determined by coherence, while the remaining `(1-τ) * N` entries (if τ < 1) can be chosen uniformly at random.
+- If τ = 1, I select all the positions with the highest local coherence and apply the $p_{mask}$ ∈ {0, 1} proportion on these positions. 
+
+- If τ = 0.5, I select the top 50% of positions according to their local coherence and apply the $p_{mask}$ proportion on these selected positions and I complete the remaining 50% by masking the positions randomly.
+
+- If τ = 0, no coherence-based selection is done, and the masked positions are chosen entirely at random according to $p_{mask}$.
+
+This ensures that exactly $p_{mask}\cdot(m*n)$ entries are masked in each matrix, with a fraction τ determined by coherence, while the remaining $(1-τ)\cdot|\Omega|$ entries (if τ < 1) can be chosen uniformly at random.
+
+Our hypothesis was that, coherence-based sampling could improve recovery by prioritizing informative entries, as suggested by [*Chen, Y., Bhojanapalli, S., Sanghavi, S., & Ward, R. (2014). Coherent Matrix Completion. In Proceedings of the 31st International Conference on Machine Learning (ICML 2014)*](https://proceedings.mlr.press/v32/chenc14.html).
 
 ### Experimental setup
 - Model: BERT trained for matrix completion (as in the original paper) with the same parameters 
@@ -38,9 +56,26 @@ The results show that, the masking strategy has a strong impact on model perform
 |:--:|:--:|
 | *Fig. 4 – Train loss (L) evolution* | *Fig. 5 – Mask loss (L_mask) evolution* |
 
+### Discusion
+These results contradict the initial hypothesis that coherence-based sampling might enhance convex recovery.
+While the theory of Chen et al. (2014) shows that coherence-aware sampling can reduce sample complexity in some structured settings, our findings indicate that strong coherence bias actually hurts recovery when the sampling becomes too localized.
+
+In contrast, uniform random masking (τ=0) ensures an even distribution of observations across the matrix, preserving the incoherence condition necessary for stable recovery.
+Moderate coherence levels (τ≈0.3−0.5) can still maintain acceptable performance, suggesting that a limited bias may help exploit structured information without violating these assumptions
 
 ## Additional Experiment — Coherence based in Convex Methods
-I also tested the impact of local coherence on convex approaches for matrix completion, in particular Nuclear Norm Minimization
+I also tested the impact of local coherence on convex approaches for matrix completion, in particular Nuclear Norm Minimization problem, formulated as:
+
+$$
+\min_{X} \|X\|_* \quad \text{s.t.} \quad X_{ij} = M_{ij} \ \forall (i,j) \in \Omega
+$$
+
+where:
+- $\|X\|_* = \sum_{i=1}^r \sigma_i(X)$ denotes the nuclear norm.
+- $r \in \mathbb{R} $ is the rank.
+- $M \in \mathbb{R}^{m \times n}$ is the low-rank  incomplete matrix observed.
+- $\Omega \subset [m] \times [n]$ represents the set of observed indices.
+
 
 ### Experimental setup
 - Parameters:
@@ -60,6 +95,11 @@ These results confirm that, coherence-based masking significantly reduces recove
 
  ![Fig 6](images/cvx.png)
  *Fig. 6 – MSE evolution according to tau for different p_mask* 
+
+## Future work
+As future work, 
+- we will test how are LLMs sensitive to coherence in-context, in a case study on sparse recovery and matrix factorization, inspired by the paper : *"What Can Transformers Learn In-Context? A Case Study of Simple Function Classes" (Garg et al., 2022)."*
+- we will also test the model for inputs based on low coherence
 
 ## To reproduce this work
 ### Setup 

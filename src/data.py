@@ -1,7 +1,6 @@
 import torch
 from abc import ABC, abstractmethod
 import numpy as np
-from utils_vector.svd import np_SVD
 
 class Matrix(ABC):
     def __init__(self, min_val, max_val, min_vocab, max_vocab):
