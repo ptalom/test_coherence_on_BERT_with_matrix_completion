@@ -5,7 +5,7 @@ In the original paper *"Abrupt Learning in Transformers: A Case Study on Matrix 
 For this mini-project, I want to test the model's sensitivity when the masked positions are selected according to a coherence-based criterion rather than uniformly as random, as in the original paper. To achieve this, I compute the local coherence for each generated matrix and select the positions to mask based on this coherence.
 
 ### Problem setup
-We consider the **matrix completion** problem, where the goal is to recover a low-rank matrix $$M \in \mathbb{R}^{m \times n}$$ from a subset of its observed entries. Let $\Omega \subset [m] \times [n]$ denote the set of observed indices, with $|\Omega| = (1-p_{mask})\cdot m*n$. The task is to recover $M$ from the projection $P_\Omega(M)$, where $P_\Omega$ keeps entries in $\Omega$ and sets others to zero.
+We consider the **matrix completion** problem, where the goal is to recover a low-rank matrix $$M \in \mathbb{R}^{m \times n}$$ from a subset of its observed entries. Let $\Omega \subset [m] \times [n]$ denotes the set of observed indices, with $|\Omega| = (1-p_{mask})\cdot m*n$. The task is to recover $M$ from the projection $P_\Omega(M)$, where $P_\Omega$ keeps entries in $\Omega$ and sets others to zero.
 
 ### Matrix coherence
 The coherence of a subspace quantifies how aligned its basis vectors are with the canonical axes.
@@ -67,10 +67,11 @@ Moderate coherence levels (τ≈0.3−0.5) can still maintain acceptable perform
 I also tested the impact of local coherence on convex approaches for matrix completion, in particular Nuclear Norm Minimization problem, formulated as:
 
 $$
-\min_{X} \|X\|_* \quad \text{s.t.} \quad X_{ij} = M_{ij} \ \forall (i,j) \in \Omega
+\min_{X} \|X\|_* \quad \text{s.t.} \quad X_{ij} = M_{ij} \quad \forall (i,j) \in \Omega
 $$
 
 where:
+
 - $\|X\|_* = \sum_{i=1}^r \sigma_i(X)$ denotes the nuclear norm.
 - $r \in \mathbb{R} $ is the rank.
 - $M \in \mathbb{R}^{m \times n}$ is the low-rank  incomplete matrix observed.
