@@ -95,7 +95,7 @@ These results confirm that, coherence-based masking significantly reduces recove
 
 ## Future work
 As future work, 
-- we will test how are LLMs sensitive to coherence in-context, in a case study on sparse recovery and matrix factorization, inspired by the paper : *"What Can Transformers Learn In-Context? A Case Study of Simple Function Classes" (Garg et al., 2022)."*
+- we will test how are LLMs sensitive to coherence in-context, in a case study on sparse recovery and matrix factorization, inspired by the paper : [*"What Can Transformers Learn In-Context? A Case Study of Simple Function Classes" (Garg et al., 2022)."*](https://arxiv.org/pdf/2208.01066)
 - we will also test the model for inputs based on low coherence
 
 ## To reproduce this work
