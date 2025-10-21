@@ -8,15 +8,16 @@ For this mini-project, I want to test the model's sensitivity when the masked po
 We consider the **matrix completion** problem, where the goal is to recover a low-rank matrix $$M \in \mathbb{R}^{m \times n}$$ from a subset of its observed entries. Let $\Omega \subset [m] \times [n]$ denotes the set of observed indices, with $|\Omega| = (1-p_{mask})\cdot m*n$. The task is to recover $M$ from the projection $P_\Omega(M)$, where $P_\Omega$ keeps entries in $\Omega$ and sets others to zero.
 
 ### Matrix coherence
-The coherence of a subspace quantifies how aligned its basis vectors are with the canonical axes.
-for a rank-$r$ matrix $M=U\Sigma V^T $, where $U \in \mathbb{R}^{m \times r} $ and $ V \in \mathbb{R}^{n \times r}$, the row and the column coherence are defined as : 
+The coherence of a subspace quantifies how aligned its basis vectors are with the canonical axes.For a rank-`r` matrix `M = U Σ Vᵀ`, where `U ∈ ℝ^{m×r}` and `V ∈ ℝ^{n×r}`,  
+the **row** and **column coherence** are defined as:
 
-$$
-\mu_i(U)= \frac{m}{r}max\|P_{U}e_i\|_2^2
- \quad
-\mu_j(V)= \frac{n}{r}max\|P_{V}e_j\|_2^2
-$$
-where $P_U=UU^T$ and $e_i$ are canonical basis vectors.
+μᵢ(U) = (m / r) * max |P_U eᵢ|₂²
+
+μⱼ(V) = (n / r) * max |P_V eⱼ|₂²
+
+$\mu_i(U)= \frac{m}{r}max\|P_{U}e_i\|_2^2 \quad \mu_j(V)= \frac{n}{r}max\|P_{V}e_j\|_2^2$
+
+where `P_U = U Uᵀ`, `P_V = V Vᵀ`, and `eᵢ` are canonical basis vectors.
 
 ### Coherence-Based Sampling
 Instead of sampling uniformly at random, **coherence-based sampling** biases the mask toward more or less coherent entries.
@@ -66,9 +67,11 @@ Moderate coherence levels (τ≈0.3−0.5) can still maintain acceptable perform
 ## Additional Experiment — Coherence based in Convex Methods
 I also tested the impact of local coherence on convex approaches for matrix completion, in particular Nuclear Norm Minimization problem, formulated as:
 
-$$
-\min_{X} \|X\|_* \quad \text{s.t.} \quad X_{ij} = M_{ij} \quad \forall (i,j) \in \Omega
-$$
+The matrix completion problem can be formulated as:
+
+    min   ||X||_*  s.t.  X_ij = M_ij  for all (i, j) ∈ Ω
+
+$\min_{X} \|X\|_* \quad \text{s.t.} \quad X_{ij} = M_{ij} \quad \forall (i,j) \in \Omega$
 
 where:
 
@@ -76,6 +79,11 @@ where:
 - $r \in \mathbb{R} $ is the rank.
 - $M \in \mathbb{R}^{m \times n}$ is the low-rank  incomplete matrix observed.
 - $\Omega \subset [m] \times [n]$ represents the set of observed indices.
+
+where:
+- `||X||_* = Σ σ_i(X)` is the nuclear norm (sum of singular values),
+- `M ∈ ℝ^{m×n}` is the observed low-rank matrix,
+- `Ω ⊂ [m]×[n]` is the set of observed entries.
 
 
 ### Experimental setup
