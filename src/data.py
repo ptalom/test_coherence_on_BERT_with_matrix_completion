@@ -83,7 +83,11 @@ class RealMatrix(Matrix):
         if tau > 0:
             P = self.calculate_local_coherence(matrix)
             P_flat = P.reshape(batch_size, -1)
+            #les plus cohérentes
             sorted_idx = torch.argsort(P_flat, dim=1, descending=True)
+            
+            #les moins cohérentes
+            #sorted_idx = torch.argsort(P_flat, dim=1, descending=False)
 
             coh_mask_flat = torch.zeros_like(P_flat, dtype=torch.bool)
             coh_mask_flat.scatter_(1, sorted_idx[:, :N_tau], True)
