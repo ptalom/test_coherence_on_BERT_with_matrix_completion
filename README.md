@@ -18,12 +18,12 @@ This ensures that exactly `p_mask * (m * n)` entries are masked in each matrix, 
 - Model: BERT trained for matrix completion (as in the original paper) with the same parameters 
 
 ### Results
-The results show that:
-- When τ = 1 (fully coherence-based masking) showed in Fig 1, model performance decreases significantly compared to τ = 0 showed in Fig 2. The sudden drop in loss that whe can see in the original paper (τ = 0) is completly absent. But for τ = 0.5, but for tau=0.5 we can already see the sudden drop in loss, although it is not the same as that of tau =1.
+The results show that, the masking strategy has a strong impact on model performance:
+- When **τ = 1 (fully coherence-based masking)** as shown in Fig 1, the model performance decreases significantly compared to uniform masking (τ = 0, Fig 2). The sudden drop in loss that is present in the original paper (τ = 0) is completly absent under fully coherent masking. For intermediate coherence (τ = 0.5, Fig 3), the sudden drop is partially recovered, although it is still weaker than in the uniform masking case.
 
-- The Transformer appears to rely on a certain degree of randomness in the masked entries to generalize effectively.
+- **Role of randomness**: These observations suggest that the Transformer relies on a certain degree of randomness in the masked entries to generalize effectively.
 
-- This suggests that uniform masking promotes more robust learning than coherence-focused masking, likely because coherence-based masking introduces strong sampling bias.
+- **Bias induced by coherence-based masking**: Uniform masking appears to promote more robust learning, while coherence-focused masking introduces strong sampling bias, which reduces recovery performance.
 
 | ![Fig 1](images/training_tau_1.png) | ![Fig 2](images/training_tau_0.png) | ![Fig 3](images/training_tau_05.png) |
 |:--:|:--:|:--:|
@@ -43,7 +43,7 @@ Fig 4 and 5 respectively show on the same image the evolution of the error accor
 I also tested the impact of local coherence on convex approaches for matrix completion, in particular Nuclear Norm Minimization
 
 ### Experimental setup
-- Parameters varied:
+- Parameters:
     - Masking proportion `p_mask` ∈ `{0.1, 0.3, 0.5, 0.7, 0.9}`
     - Coherence control parameter τ ∈ [0, 1]
 - Metric: Mean Squared Error (MSE) on observed, masked, and total entries.
@@ -51,14 +51,14 @@ I also tested the impact of local coherence on convex approaches for matrix comp
 For each configuration, I ran the solver multiple times with different random seeds and plotted the mean ± standard deviation to ensure consistent and robust comparisons
 
 ### Results
-
+Fig 6 shows the effect of coherence-based masking on the reconstruction performance of the convex low-rank solver
 1. Total reconstruction error (`L_mean`) and masked-entry error (`L_mask_mean`) increase with τ.  
 2. Error on observed entries (`L_obs_mean`) remains nearly constant.  
 3. Low masking rates (p_mask ≤ 0.3) tolerate coherence reasonably well, while higher masking rates (p_mask ≥ 0.5) exhibit a sharp degradation when τ → 1.
 
 These results confirm that, coherence-based masking significantly reduces recovery performance, especially for large fractions of missing entries, demonstrating the sensitivity of convex low-rank recovery methods to mask structure.
-| ![Fig 6](images/cvx.png) |
-| *Fig. 6 – MSE evolution according to tau for different p_mask* |
+ ![Fig 6](images/cvx.png)
+ *Fig. 6 – MSE evolution according to tau for different p_mask* 
 
 ## To reproduce this work
 ### Setup 
