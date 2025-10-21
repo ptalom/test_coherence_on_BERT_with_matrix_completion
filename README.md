@@ -20,7 +20,7 @@ where `P_U = U Uᵀ`, `P_V = V Vᵀ`, and `eᵢ` are canonical basis vectors.
 Instead of sampling uniformly at random, **coherence-based sampling** biases the mask toward more or less coherent entries.
 I use τ ∈ [0, 1] to control this bias:
 
-- If τ = 1, I select all the positions with the highest local coherence and apply the $p_{mask}$ ∈ {0, 1} proportion on these positions. 
+- If τ = 1, I select all the positions with the highest local coherence and apply the $p_{mask}$ ∈ (0, 1) proportion on these positions. 
 
 - If τ = 0.5, I select the top 50% of positions according to their local coherence and apply the $p_{mask}$ proportion on these selected positions and I complete the remaining 50% by masking the positions randomly.
 
