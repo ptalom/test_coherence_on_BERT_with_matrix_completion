@@ -8,8 +8,7 @@ For this mini-project, I want to test the model's sensitivity when the masked po
 We consider the **matrix completion** problem, where the goal is to recover a low-rank matrix $$M \in \mathbb{R}^{m \times n}$$ from a subset of its observed entries. Let $\Omega \subset [m] \times [n]$ denotes the set of observed indices, with $|\Omega| = (1-p_{mask})\cdot m*n$. The task is to recover $M$ from the projection $P_\Omega(M)$, where $P_\Omega$ keeps entries in $\Omega$ and sets others to zero.
 
 ### Matrix coherence
-The coherence of a subspace quantifies how aligned its basis vectors are with the canonical axes. For a rank-`r` matrix `M = U Σ Vᵀ`, where `U ∈ ℝ^{m×r}` and `V ∈ ℝ^{n×r}`,  
-the **row** and **column coherence** are defined as:
+The coherence of a subspace quantifies how aligned its basis vectors are with the canonical axes. For a rank-`r` matrix `M = U Σ Vᵀ`, where `U ∈ ℝ^{m×r}` and `V ∈ ℝ^{n×r}`, the **row** and **column coherence** are defined as:
 ```
     μᵢ(U) = (m / r) * max ||P_U eᵢ||₂      μⱼ(V) = (n / r) * max ||P_V eⱼ||₂
 ```
@@ -35,7 +34,7 @@ Our hypothesis was that, coherence-based sampling could improve recovery by prio
 
 ### Results
 The results show that, the masking strategy has a strong impact on model performance:
-- When **τ = 1 (fully coherence-based masking)** as shown in [Fig 1], the model performance decreases significantly compared to uniform masking (τ = 0, [Fig 2]). The sudden drop in loss that is present in the original paper (τ = 0) is completly absent under fully coherent masking. For intermediate coherence (τ = 0.5, [Fig 3]), the sudden drop is partially recovered, although it is still weaker than in the uniform masking case.
+- When **τ = 1 (fully coherence-based masking)** as shown in [Fig. 1], the model performance decreases significantly compared to uniform masking (τ = 0, [Fig. 2]). The sudden drop in loss that is present in the original paper (τ = 0) is completly absent under fully coherent masking. For intermediate coherence (τ = 0.5, [Fig. 3]), the sudden drop is partially recovered, although it is still weaker than in the uniform masking case.
 
 - **Role of randomness**: These observations suggest that the Transformer relies on a certain degree of randomness in the masked entries to generalize effectively.
 
@@ -49,7 +48,7 @@ The results show that, the masking strategy has a strong impact on model perform
 - This experiment indicates that BERT (Transformers) trained for matrix completion are sensitive to structured masking patterns.
 - High-coherence masking (τ = 1) hinders learning, whereas random masking (τ = 0) preserves generalization.
 
-[Fig 4] and [Fig 5] respectively show on the same image the evolution of the error according to tau during the training
+[Fig. 4] and [Fig. 5] respectively show on the same image the evolution of the error according to tau during the training
 | ![Fig 4](images/train_loss_all_tau.png) | ![Fig 5](images/mask_loss_all_tau.png) |
 |:--:|:--:|
 | *Fig. 4 – Train loss (L) evolution* | *Fig. 5 – Mask loss (L_mask) evolution* |
@@ -83,7 +82,7 @@ where:
 For each configuration, I ran the solver multiple times with different random seeds and plotted the mean ± standard deviation to ensure consistent and robust comparisons
 
 ### Results
-[Fig 6] shows the effect of coherence-based masking on the reconstruction performance of the convex low-rank solver
+[Fig. 6] shows the effect of coherence-based masking on the reconstruction performance of the convex low-rank solver
 1. Total reconstruction error (`L_mean`) and masked-entry error (`L_mask_mean`) increase with τ.  
 2. Error on observed entries (`L_obs_mean`) remains nearly constant.  
 3. Low masking rates (`p_mask ≤ 0.3`) tolerate coherence reasonably well, while higher masking rates (`p_mask ≥ 0.5`) exhibit a sharp degradation when τ → 1.
