@@ -96,8 +96,8 @@ For each configuration, I ran the solver multiple times with different random se
 
 These results confirm that, coherence-based masking significantly reduces recovery performance, especially for large fractions of missing entries, demonstrating the sensitivity of convex low-rank recovery methods to mask structure.
 
- ![Fig 6](images/cvx.png)
- *Fig. 6 – MSE evolution according to tau for different p_mask* 
+ ![Fig 8](images/cvx.png)
+ *Fig. 8 – MSE evolution according to tau for different p_mask* 
 
 ## Future work
 As future work, 
