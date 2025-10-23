@@ -60,6 +60,13 @@ While the theory of Chen et al. (2014) shows that coherence-aware sampling can r
 In contrast, uniform random masking (τ=0) ensures an even distribution of observations across the matrix, preserving the incoherence condition necessary for stable recovery.
 Moderate coherence levels (τ≈0.3−0.5) can still maintain acceptable performance, suggesting that a limited bias may help exploit structured information without violating these assumptions
 
+### Appendix
+Here we present the evolution of train and mask losses for all values ​​of tau. A strange phenomenon occurs: the sudden drop seems to occur earlier for τ = 0.1 and τ = 0.2 than for τ = 0. And tau = 0.1 (10% coherence based masking and 90% randomness) seems to generalize better than tau = 0 (100% randomness).
+
+| ![Fig 6](images/all_tau_train.png) | ![Fig 7](images/all_tau_mask.png) |
+|:--:|:--:|
+| *Fig. 6 – Train loss (L) evolution for all tau values* | *Fig. 7 – Mask loss (L_mask) evolution for all tau values* |
+
 ## Additional Experiment — Coherence based in Convex Methods
 I also tested the impact of local coherence on convex approaches for matrix completion, in particular Nuclear Norm Minimization problem, formulated as:
 
