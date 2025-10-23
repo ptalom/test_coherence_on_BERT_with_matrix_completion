@@ -40,6 +40,8 @@ The results show that, the masking strategy has a strong impact on model perform
 
 - **Bias induced by coherence-based masking**: Uniform masking appears to promote more robust learning, while coherence-focused masking introduces strong sampling bias, which reduces recovery performance.
 
+You can see the results on all tau values ​​in the appendix [Fig. 6] and [Fig. 7]
+
 | ![Fig 1](images/training_tau_1.png) | ![Fig 2](images/training_tau_0.png) | ![Fig 3](images/training_tau_05.png) |
 |:--:|:--:|:--:|
 | *Fig. 1 – Coherence-based masking (tau=1)* | *Fig. 2 – Coherence-based masking (tau=0)* | *Fig. 3 – Coherence-based masking (tau=0.5)* |
@@ -63,7 +65,7 @@ Moderate coherence levels (τ≈0.3−0.5) can still maintain acceptable perform
 ### Appendix
 Here we present the evolution of train and mask losses for all values ​​of tau. A strange phenomenon occurs: the sudden drop seems to occur earlier for τ = 0.1 and τ = 0.2 than for τ = 0. And tau = 0.1 (10% coherence based masking and 90% randomness) seems to generalize better than tau = 0 (100% randomness). Can we say that with a very slight bias (coherence based), we can have a better generalization?
 
-| ![Fig 6](images/all_tau_train.png) | ![Fig 7](images/all_tau_mask.png) |
+| ![Fig 6](images/t_l_all_tau.png) | ![Fig 7](images/m_l_all_tau.png) |
 |:--:|:--:|
 | *Fig. 6 – Train loss (L) evolution for all tau values* | *Fig. 7 – Mask loss (L_mask) evolution for all tau values* |
 
