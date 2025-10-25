@@ -197,7 +197,7 @@ def main(args, ckpt_dir):
         wandb_project = "mlm_training"    
         wandb_entity = "tik_lom"            
         
-        #wandb login a8b3276fb38485c3be1fc8089a1a5c28f269036a
+        #wandb login 
         wandb.login()
         wandb.init(
             project=wandb_project,

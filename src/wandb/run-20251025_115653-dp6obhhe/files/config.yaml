@@ -1,0 +1,105 @@
+_wandb:
+    value:
+        cli_version: 0.21.3
+        e:
+            kx2v4lvekl33y33iph256e322enp2nst:
+                apple:
+                    ecpuCores: 4
+                    gpuCores: 8
+                    memoryGb: 8
+                    name: Apple M1
+                    pcpuCores: 4
+                    ramTotalBytes: "8589934592"
+                    swapTotalBytes: "11811160064"
+                args:
+                    - --config
+                    - configs/train.yaml
+                codePath: src/train.py
+                codePathLocal: train.py
+                cpu_count: 8
+                cpu_count_logical: 8
+                disk:
+                    /:
+                        total: "494384795648"
+                        used: "422063611904"
+                email: patrycktalom@gmail.com
+                executable: /Users/macbook/anaconda3/bin/python
+                git:
+                    commit: d059a8f8f0761a097615ca90a988f5d94de2a4e6
+                    remote: https://github.com/ptalom/test_coherence_on_BERT_with_matrix_completion.git
+                host: patrick-talom.local
+                memory:
+                    total: "8589934592"
+                os: macOS-15.6-arm64-arm-64bit
+                program: /Users/macbook/Desktop/coherence_on_MLM/src/train.py
+                python: CPython 3.10.5
+                root: /Users/macbook/Desktop/coherence_on_MLM/src
+                startedAt: "2025-10-25T10:56:53.894481Z"
+                writerId: kx2v4lvekl33y33iph256e322enp2nst
+        m: []
+        python_version: 3.10.5
+        t:
+            "1":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 53
+                - 71
+            "2":
+                - 1
+                - 5
+                - 11
+                - 49
+                - 53
+                - 71
+            "3":
+                - 1
+                - 13
+                - 16
+            "4": 3.10.5
+            "5": 0.21.3
+            "6": 4.56.1
+            "12": 0.21.3
+            "13": darwin-arm64
+data:
+    value:
+        domain: real
+        m: 7
+        max_val: 1
+        max_vocab: 10
+        min_val: -1
+        min_vocab: -10
+        "n": 7
+        prec: 2
+        test_p_mask: 0.3
+        test_rank: 2
+        test_tau: 1
+        train_p_mask: 0.3
+        train_rank: 2
+        train_tau: 1
+model:
+    value:
+        attention_probs_dropout_prob: 0
+        hidden_dropout_prob: 0
+        hidden_size: 768
+        intermediate_size: 3072
+        num_attention_heads: 8
+        num_hidden_layers: 4
+        output_attentions: false
+        output_hidden_states: false
+        position_embedding_type: absolute
+        use_cache: false
+train:
+    value:
+        ckpt_name: model.pt
+        epochs: 1
+        lr: 0.0001
+        num_eval: 64
+        num_train: 256
+        restore_ckpt: false
+        save_ckpt: false
+        save_freq: 1000
+wandb:
+    value:
+        log: true

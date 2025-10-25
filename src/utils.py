@@ -44,7 +44,7 @@ def print_output(
         print(
             f"({m}, {n}, {r}) Step {epoch} -- train loss: {round(train_loss, 4)}, eval loss: {round(eval_loss, 4)}"
         )
-
+    '''
     for i in range(X.shape[0]):
         out = []
         for j in range(X.shape[1]):
@@ -52,4 +52,5 @@ def print_output(
                 f"({round(float(output.view(X.shape)[i,j]), 4)}, {round(X[i,j].item(), 4)}, {int(mask.view(X.shape)[i,j] != 0)})"
             )
         print(f"{' '.join(out)}")
+    '''
     print("------------")

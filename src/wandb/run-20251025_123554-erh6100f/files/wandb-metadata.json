@@ -1,0 +1,41 @@
+{
+  "os":  "macOS-15.6-arm64-arm-64bit",
+  "python":  "CPython 3.10.5",
+  "startedAt":  "2025-10-25T11:35:54.087744Z",
+  "args":  [
+    "--config",
+    "configs/train.yaml"
+  ],
+  "program":  "/Users/macbook/Desktop/coherence_on_MLM/src/train.py",
+  "codePath":  "src/train.py",
+  "codePathLocal":  "train.py",
+  "git":  {
+    "remote":  "https://github.com/ptalom/test_coherence_on_BERT_with_matrix_completion.git",
+    "commit":  "d059a8f8f0761a097615ca90a988f5d94de2a4e6"
+  },
+  "email":  "patrycktalom@gmail.com",
+  "root":  "/Users/macbook/Desktop/coherence_on_MLM/src",
+  "host":  "patrick-talom.local",
+  "executable":  "/Users/macbook/anaconda3/bin/python",
+  "cpu_count":  8,
+  "cpu_count_logical":  8,
+  "disk":  {
+    "/":  {
+      "total":  "494384795648",
+      "used":  "422090723328"
+    }
+  },
+  "memory":  {
+    "total":  "8589934592"
+  },
+  "apple":  {
+    "name":  "Apple M1",
+    "ecpuCores":  4,
+    "pcpuCores":  4,
+    "gpuCores":  8,
+    "memoryGb":  8,
+    "swapTotalBytes":  "11811160064",
+    "ramTotalBytes":  "8589934592"
+  },
+  "writerId":  "d0sxqo5y4si0a46r9l9572lvfmc24h8p"
+}
